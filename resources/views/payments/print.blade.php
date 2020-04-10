@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Recibo No. {{ $pago->id }}</title>
+</head>
+<body>
+<p><img style="display: block; margin-left: auto; margin-right: auto;" src="data:image/png;base64,{{ $logo }}" alt="" width="80" height="auto" /></p>
+<p style="font-size: 12px; text-align: center; padding-bottom: 0;margin-bottom: 0">{{ $pago->service->subscriber->agency->isp->nombre }}</p>
+<p style="font-size: 12px; text-align: center; padding-top: 0; margin-top: 0; padding-bottom: 0;margin-bottom: 0">{{ $pago->service->subscriber->agency->direccion }} - {{ $pago->service->subscriber->agency->municipio }}</p>
+<p style="font-size: 12px; text-align: center; padding-top: 0; margin-top: 0; padding-bottom: 0;margin-bottom: 0">NIT: {{ $pago->service->subscriber->agency->isp->nit }}</p>
+<p style="font-size: 12px; text-align: center; padding-top: 0; margin-top: 0; padding-bottom: 0;margin-bottom: 0">TEL: {{ $pago->service->subscriber->agency->telefono }}</p>
+<p style="font-size: 12px; text-align: center; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0">{{ strtolower($pago->service->subscriber->agency->email) }}</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 0;margin-bottom: 0"><strong>Cliente:</strong> {{ $pago->service->subscriber->primer_nombre }} @if ($pago->service->subscriber->segundo_nombre) {{ $pago->service->subscriber->segundo_nombre[0] }}.@endif {{ $pago->service->subscriber->primer_apellido }} {{ $pago->service->subscriber->segundo_apellido }}</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 0;margin-bottom: 0"><strong>Forma de Pago:</strong> {{ $pago->forma_pago }} @if (isset($pago->referencia_pago)) - Ref: {{ $pago->referencia_pago }} @endif</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 0;margin-bottom: 0"><strong>Estado:</strong> Pagada</p>
+<p style="font-size: 10px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0"><strong>FECHA DE PAGO: {{ $pago->fecha_pago->format('d/m/Y H:i') }}&nbsp;&nbsp;&nbsp;&nbsp; RECIBO N&ordm; {{ $pago->id }}</strong></p>
+<p style="font-size: 12px; text-align: center; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 0;margin-bottom: 0"><strong>Descripci&oacute;n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Precio</strong></p>
+
+@if (isset($pago->descripcion))
+<p style="font-size: 9px; text-align: left; padding-left: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ $pago->descripcion }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ {{ number_format($pago->monto, 2, ',', '.') }}</p>
+@else
+<p style="font-size: 9px; text-align: left; padding-left: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ABONO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ {{ number_format($pago->monto, 2, ',', '.') }}</p>
+@endif
+
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0">SUBTOTAL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ {{ number_format($pago->monto, 2, ',', '.') }}</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0">DESCUENTO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ 0</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0">IVA:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ 0</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0">GRAND TOTAL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ {{ number_format($pago->monto, 2, ',', '.') }}</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0">SALDO PENDIENTE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ 0</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0">SU PAGO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ {{ number_format($pago->monto, 2, ',', '.') }}</p>
+<p style="font-size: 12px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 5px;margin-bottom: 0">NUEVO SALDO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ 0</p>
+<p style="font-size: 13px; text-align: left; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 2px;margin-bottom: 0"><strong>Cajero:</strong> @if (isset($pago->cajero)) {{ strtoupper($pago->cajero->nombres) }} @endif</p>
+<p style="font-size: 12px; text-align: center; padding-left: 10px; padding-top: 0; margin-top: 0; padding-bottom: 2px;margin-bottom: 0">Gracias por su pago.</p>
+</body>
+</html>
